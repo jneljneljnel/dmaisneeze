@@ -1,13 +1,15 @@
+
 let recordButton, stopButton, recorder, submitButton, filename, word;
 let blob = [];
 let url = {
-  heroku : 'https://dmaiaudio.herokuapp.com/api/kb8',
-  dev : 'http://localhost:3300/api/kb8'
+  heroku : 'https://dmaiaudio.herokuapp.com/api/',
+  dev : 'http://localhost:3300/api/'
 }
 let options = {mimeType: 'audio/ogg'};
 let random = Math.floor((Math.random() * 2) + 1);
 let randomFile = Math.floor((Math.random() * 3) + 1);
 let posting = false;
+let folder = 'sneeze';
 
 
 if (randomFile == 1){
@@ -121,12 +123,13 @@ function post(){
    formData.append('filename', randomFile+'_'+random+'_'+datenow);
    formData.append('plural', random);
    formData.append('tag', tag);
+   formData.append('folder', folder);
    formData.append('fileId', randomFile);
    console.log('POST', blob[0], blob[0].size);
    if(posting == false) {
      posting = true;
       $.ajax({
-        url: 'https://dmaiaudio.herokuapp.com/api/dmailaugh',
+        url: url.heroku+'dmai'+folder,
         type: 'POST',
         data:formData,
         processData: false,
